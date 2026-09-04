@@ -12,8 +12,7 @@ SELECT
   p.product_name,
   p.price                                    AS actual_price,
   t.discount_percentage,
-
-  -- Persentase gross laba berdasarkan tier harga
+  
   CASE
     WHEN p.price <= 50000                        THEN 0.10
     WHEN p.price > 50000  AND p.price <= 100000   THEN 0.15
@@ -22,10 +21,10 @@ SELECT
     WHEN p.price > 500000                         THEN 0.30
   END                                         AS persentase_gross_laba,
 
-  -- Nett sales = harga setelah diskon
+  
   p.price * (1 - t.discount_percentage)      AS nett_sales,
 
-  -- Nett profit = nett sales * persentase gross laba
+
   p.price * (1 - t.discount_percentage) *
   CASE
     WHEN p.price <= 50000                        THEN 0.10
